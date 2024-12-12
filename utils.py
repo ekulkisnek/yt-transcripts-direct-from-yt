@@ -1,5 +1,6 @@
 import re
 import json
+import html
 import logging
 import urllib.parse
 import requests
@@ -78,7 +79,9 @@ def extract_transcript(url):
                                 # Extract and format transcript text
                                 transcript = []
                                 for text in transcript_soup.find_all('text'):
-                                    transcript.append(text.get_text().strip())
+                                    # Unescape HTML entities like &#39; to proper characters
+                                    cleaned_text = html.unescape(text.get_text().strip())
+                                    transcript.append(cleaned_text)
                                 
                                 return '\n'.join(transcript)
                     except Exception as e:
