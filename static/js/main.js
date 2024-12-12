@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${VENICE_API_KEY}`,
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     model: 'most_intelligent',
@@ -108,14 +108,21 @@ document.addEventListener('DOMContentLoaded', function() {
                             role: 'user',
                             content: text
                         }
-                    ]
+                    ],
+                    temperature: 0.7
                 })
             });
 
-            const data = await response.json();
-            
             if (!response.ok) {
-                throw new Error(data.error || 'Failed to generate outline');
+                const errorData = await response.json();
+                throw new Error(errorData.error?.message || 'Failed to communicate with Venice API');
+            }
+
+            const data = await response.json();
+            console.log('Venice API response:', data);  // Debug log
+            
+            if (!data.choices || !data.choices[0]?.message?.content) {
+                throw new Error('Invalid response format from Venice API');
             }
 
             return data.choices[0].message.content;
@@ -133,21 +140,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            // Save original text to restore if needed
+            const originalTranscript = originalText;
+            
+            // Show loading state
             const originalButtonText = this.innerHTML;
             this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating...';
             this.disabled = true;
+            showLoading();
+            error.classList.add('d-none');
 
-            const outline = await generateVeniceOutline(originalText);
-            transcript.textContent = outline;
-
-            this.innerHTML = '<i class="fas fa-check me-2"></i>Outline Generated';
-            setTimeout(() => {
-                this.innerHTML = originalButtonText;
-                this.disabled = false;
-            }, 2000);
+            try {
+                const outline = await generateVeniceOutline(originalText);
+                if (outline) {
+                    transcript.textContent = outline;
+                    this.innerHTML = '<i class="fas fa-check me-2"></i>Outline Generated';
+                } else {
+                    throw new Error('Failed to generate outline');
+                }
+            } catch (err) {
+                console.error('Venice API Error:', err);
+                transcript.textContent = originalTranscript;  // Restore original text
+                throw err;  // Re-throw to be caught by outer try-catch
+            }
 
         } catch (err) {
-            showError('Failed to generate outline. Please try again.');
+            showError(err.message || 'Failed to generate outline. Please try again.');
+        } finally {
+            // Always cleanup
+            loading.classList.add('d-none');
             this.innerHTML = '<i class="fas fa-list me-2"></i>Venice Outline';
             this.disabled = false;
         }
