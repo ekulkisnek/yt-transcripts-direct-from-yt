@@ -56,18 +56,35 @@ def extract_transcript(url):
             patterns = [
                 r'(?:"playerCaptionsTracklistRenderer":{"captionTracks":)(.*?)(?:,"audioTracks"|,"translationLanguages")',
                 r'(?:"captions":{[^}]*"playerCaptionsTracklistRenderer":{[^}]*"captionTracks":)(.*?)(?:]}|},")',
-                r'"captionTracks":(.*?)(?:,"audioTracks"|,"translationLanguages"|,"isTranslatable")'
+                r'"captionTracks":(.*?)(?:,"audioTracks"|,"translationLanguages"|,"isTranslatable")',
+                r'(?:"captionTracks":)(.*?)(?:,"translationLanguages"|,"audioTracks"|,"isTranslatable")',
+                r'"captions":\{"playerCaptionsTracklistRenderer":\{"captionTracks":(.*?),'
             ]
             
+            # Log some context about the script content
+            content_preview = script_content[:200] if len(script_content) > 200 else script_content
+            logging.debug(f"Analyzing script {i} content preview: {content_preview}")
+            
             for pattern in patterns:
+                logging.debug(f"Trying pattern: {pattern}")
                 match = re.search(pattern, script_content)
                 if match:
                     logging.debug(f"Found script with captions data at index {i} using pattern: {pattern}")
                     try:
                         caption_data_str = match.group(1)
                         logging.debug(f"Found caption data: {caption_data_str[:200]}...")  # Log first 200 chars
-                        caption_tracks = json.loads(caption_data_str)
-                        logging.debug(f"Found {len(caption_tracks)} caption tracks")
+                        # Try to parse the caption data as JSON
+                        try:
+                            caption_tracks = json.loads(caption_data_str)
+                            if isinstance(caption_tracks, list) and len(caption_tracks) > 0:
+                                logging.debug(f"Successfully parsed caption data, found {len(caption_tracks)} tracks")
+                            else:
+                                logging.debug("Parsed caption data but found no tracks, continuing search...")
+                                continue
+                            logging.debug(f"Found {len(caption_tracks)} caption tracks")
+                        except json.JSONDecodeError as e:
+                            logging.error(f"Failed to parse caption data as JSON: {str(e)}")
+                            continue
                         
                         if caption_tracks:
                             # Get the first available English transcript or fall back to the first available
@@ -140,6 +157,42 @@ def extract_transcript(url):
                         logging.error(f"Error processing caption data: {str(e)}")
                         continue
         
+        # If no captions found through patterns, try a more general search
+        logging.debug("No captions found with specific patterns, trying general search...")
+        for script in scripts:
+            if not script.string:
+                continue
+            if '"baseUrl"' in script.string and ('timedtext' in script.string or 'captions' in script.string):
+                logging.debug("Found potential caption data using general search")
+                try:
+                    # Try to find any URL containing timedtext
+                    urls = re.findall(r'"baseUrl":"(https://[^"]+timedtext[^"]+)"', script.string)
+                    if urls:
+                        logging.debug(f"Found {len(urls)} potential caption URLs")
+                        for url in urls:
+                            try:
+                                url = url.replace('\\u0026', '&')  # Fix escaped characters
+                                logging.debug(f"Trying caption URL: {url}")
+                                response = requests.get(url, headers=headers)
+                                if response.status_code == 200:
+                                    soup = BeautifulSoup(response.text, 'xml')
+                                    texts = soup.find_all('text')
+                                    if texts:
+                                        transcript = []
+                                        for text in texts:
+                                            cleaned_text = html.unescape(text.get_text().strip())
+                                            if cleaned_text:
+                                                transcript.append(cleaned_text)
+                                        if transcript:
+                                            return '\n'.join(transcript)
+                            except Exception as e:
+                                logging.error(f"Error fetching caption URL: {str(e)}")
+                                continue
+                except Exception as e:
+                    logging.error(f"Error in general caption search: {str(e)}")
+        
+        logging.error("No captions found through any method")
         return None
     except Exception as e:
-        raise Exception(f"Failed to extract transcript: {str(e)}")
+        logging.error(f"Failed to extract transcript: {str(e)}")
+        return None
