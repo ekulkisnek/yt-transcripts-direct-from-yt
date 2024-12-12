@@ -91,41 +91,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function generateVeniceOutline(text) {
         try {
-            const response = await fetch('https://api.venice.ai/api/v1/chat/completions', {
+            const response = await fetch('/generate-outline', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${VENICE_API_KEY}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    model: 'most_intelligent',
-                    messages: [
-                        {
-                            role: 'system',
-                            content: SYSTEM_PROMPT
-                        },
-                        {
-                            role: 'user',
-                            content: text
-                        }
-                    ],
-                    temperature: 0.7
-                })
+                body: JSON.stringify({ text })
             });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error?.message || 'Failed to communicate with Venice API');
-            }
-
             const data = await response.json();
-            console.log('Venice API response:', data);  // Debug log
             
-            if (!data.choices || !data.choices[0]?.message?.content) {
-                throw new Error('Invalid response format from Venice API');
+            if (!data.success) {
+                throw new Error(data.error || 'Failed to generate outline');
             }
 
-            return data.choices[0].message.content;
+            return data.outline;
         } catch (err) {
             console.error('Error generating outline:', err);
             throw err;
