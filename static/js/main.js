@@ -120,11 +120,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Save original text to restore if needed
+            // Save original state
             const originalTranscript = originalText;
-            
-            // Show loading state
             const originalButtonText = this.innerHTML;
+            
+            // Update UI to loading state
             this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating...';
             this.disabled = true;
             showLoading();
@@ -135,21 +135,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (outline) {
                     transcript.textContent = outline;
                     this.innerHTML = '<i class="fas fa-check me-2"></i>Outline Generated';
+                    setTimeout(() => {
+                        this.innerHTML = originalButtonText;
+                    }, 2000);
                 } else {
                     throw new Error('Failed to generate outline');
                 }
             } catch (err) {
                 console.error('Venice API Error:', err);
-                transcript.textContent = originalTranscript;  // Restore original text
-                throw err;  // Re-throw to be caught by outer try-catch
+                transcript.textContent = originalTranscript;
+                throw err;
             }
 
         } catch (err) {
             showError(err.message || 'Failed to generate outline. Please try again.');
         } finally {
-            // Always cleanup
             loading.classList.add('d-none');
-            this.innerHTML = '<i class="fas fa-list me-2"></i>Venice Outline';
             this.disabled = false;
         }
     });

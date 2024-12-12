@@ -1,0 +1,48 @@
+ * Serving Flask app 'main'
+ * Debug mode: on
+INFO:werkzeug:WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.31.196.112:5000
+INFO:werkzeug:Press CTRL+C to quit
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 117-846-296
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:32:26] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:32:26] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:32:27] "GET /static/css/style.css HTTP/1.1" 304 -
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:32:27] "GET /static/js/main.js HTTP/1.1" 304 -
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:32:27] "GET /static/js/main.js HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.youtube.com:443
+DEBUG:urllib3.connectionpool:https://www.youtube.com:443 "GET /watch?v=wOlf4Ly2v14 HTTP/11" 200 None
+DEBUG:root:Got response from YouTube with status: 200
+DEBUG:root:Found 50 script tags in the page
+DEBUG:root:Found script with captions data at index 19
+DEBUG:root:Found caption data: [{"baseUrl":"https://www.youtube.com/api/timedtext?v=wOlf4Ly2v14\u0026ei=JC9aZ8mSNMCsir4P2LSUgQE\u0026caps=asr\u0026opi=112496729\u0026exp=xbt\u0026xoaf=5\u0026hl=en\u0026ip=0.0.0.0\u0026ipbits=0\u002...
+DEBUG:root:Found 1 caption tracks
+DEBUG:root:Found English caption track
+DEBUG:root:Fetching transcript content from URL: https://www.youtube.com/api/timedtext?v=wOlf4Ly2v14&ei=JC9aZ8mSNMCsir4P2LSUgQE&caps=asr&opi=112496729&exp=xbt&xoaf=5&hl=en&ip=0.0.0.0&ipbits=0&expire=1733988756&sparams=ip,ipbits,expire,v,ei,caps,opi,exp,xoaf&signature=307401A0D0457558F907D2230F03380BA30D7E64.8F4E9ED0C847785BE19B74AFEFA51F30405C3A52&key=yt8&kind=asr&lang=en
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.youtube.com:443
+DEBUG:urllib3.connectionpool:https://www.youtube.com:443 "GET /api/timedtext?v=wOlf4Ly2v14&ei=JC9aZ8mSNMCsir4P2LSUgQE&caps=asr&opi=112496729&exp=xbt&xoaf=5&hl=en&ip=0.0.0.0&ipbits=0&expire=1733988756&sparams=ip,ipbits,expire,v,ei,caps,opi,exp,xoaf&signature=307401A0D0457558F907D2230F03380BA30D7E64.8F4E9ED0C847785BE19B74AFEFA51F30405C3A52&key=yt8&kind=asr&lang=en HTTP/11" 200 None
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:32:37] "POST /extract HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.venice.ai:443
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:32:58] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:32:58] "GET /static/js/main.js HTTP/1.1" 304 -
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:32:58] "GET /static/css/style.css HTTP/1.1" 304 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.youtube.com:443
+DEBUG:urllib3.connectionpool:https://www.youtube.com:443 "GET /watch?v=wOlf4Ly2v14 HTTP/11" 200 None
+DEBUG:root:Got response from YouTube with status: 200
+DEBUG:root:Found 50 script tags in the page
+DEBUG:root:Found script with captions data at index 19
+DEBUG:root:Found caption data: [{"baseUrl":"https://www.youtube.com/api/timedtext?v=wOlf4Ly2v14\u0026ei=PS9aZ-rdHNylir4P-sTloAI\u0026caps=asr\u0026opi=112496729\u0026exp=xbt\u0026xoaf=5\u0026hl=en\u0026ip=0.0.0.0\u0026ipbits=0\u002...
+DEBUG:root:Found 1 caption tracks
+DEBUG:root:Found English caption track
+DEBUG:root:Fetching transcript content from URL: https://www.youtube.com/api/timedtext?v=wOlf4Ly2v14&ei=PS9aZ-rdHNylir4P-sTloAI&caps=asr&opi=112496729&exp=xbt&xoaf=5&hl=en&ip=0.0.0.0&ipbits=0&expire=1733988781&sparams=ip,ipbits,expire,v,ei,caps,opi,exp,xoaf&signature=1DC887E09D08610E93D07D0D0A802D4D23B99473.E0859BC9D76B2B40F95D7FA542F1AC3C45388D13&key=yt8&kind=asr&lang=en
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.youtube.com:443
+DEBUG:urllib3.connectionpool:https://www.youtube.com:443 "GET /api/timedtext?v=wOlf4Ly2v14&ei=PS9aZ-rdHNylir4P-sTloAI&caps=asr&opi=112496729&exp=xbt&xoaf=5&hl=en&ip=0.0.0.0&ipbits=0&expire=1733988781&sparams=ip,ipbits,expire,v,ei,caps,opi,exp,xoaf&signature=1DC887E09D08610E93D07D0D0A802D4D23B99473.E0859BC9D76B2B40F95D7FA542F1AC3C45388D13&key=yt8&kind=asr&lang=en HTTP/11" 200 None
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:33:02] "POST /extract HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): api.venice.ai:443
+DEBUG:urllib3.connectionpool:https://api.venice.ai:443 "POST /api/v1/chat/completions HTTP/11" 200 None
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:33:23] "POST /generate-outline HTTP/1.1" 200 -
+DEBUG:urllib3.connectionpool:https://api.venice.ai:443 "POST /api/v1/chat/completions HTTP/11" 200 None
+INFO:werkzeug:172.31.196.112 - - [12/Dec/2024 00:33:27] "POST /generate-outline HTTP/1.1" 200 -

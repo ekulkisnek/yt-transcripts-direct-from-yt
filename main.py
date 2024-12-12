@@ -61,52 +61,73 @@ def generate_outline():
                 'error': 'No text provided for outline generation.'
             })
 
-        # Call Venice API
-        response = requests.post(
-            VENICE_API_URL,
-            headers={
-                'Authorization': f'Bearer {VENICE_API_KEY}',
-                'Content-Type': 'application/json'
-            },
-            json={
-                'model': 'most_intelligent',
-                'messages': [
-                    {
-                        'role': 'system',
-                        'content': SYSTEM_PROMPT
-                    },
-                    {
-                        'role': 'user',
-                        'content': text
-                    }
-                ],
-                'temperature': 0.7
+        # Call Venice API with detailed logging
+        headers = {
+            'Authorization': f'Bearer {VENICE_API_KEY}',
+            'Content-Type': 'application/json'
+        }
+        payload = {
+            'model': 'most_intelligent',
+            'messages': [
+                {
+                    'role': 'system',
+                    'content': SYSTEM_PROMPT
+                },
+                {
+                    'role': 'user',
+                    'content': text
+                }
+            ],
+            'temperature': 0.7,
+            'venice_parameters': {
+                'include_venice_system_prompt': False
             }
-        )
+        }
         
-        response.raise_for_status()
-        data = response.json()
+        logger.debug(f"Making request to Venice API: {VENICE_API_URL}")
+        response = requests.post(VENICE_API_URL, headers=headers, json=payload)
         
-        if not data.get('choices') or not data['choices'][0].get('message', {}).get('content'):
-            raise ValueError('Invalid response format from Venice API')
+        try:
+            data = response.json()
+            logger.debug(f"Venice API response status: {response.status_code}")
+            logger.debug(f"Venice API response data: {data}")
             
-        outline = data['choices'][0]['message']['content']
-        return jsonify({
-            'success': True,
-            'outline': outline
-        })
+            if response.status_code != 200:
+                error_msg = data.get('error', {}).get('message', 'Unknown error from Venice API')
+                logger.error(f"Venice API error: {error_msg}")
+                raise ValueError(error_msg)
+            
+            if not data.get('choices'):
+                raise ValueError('No choices in Venice API response')
+                
+            message = data['choices'][0].get('message', {})
+            if not message or not message.get('content'):
+                raise ValueError('No content in Venice API response')
+                
+            outline = message['content']
+            return jsonify({
+                'success': True,
+                'outline': outline
+            })
 
-    except requests.RequestException as e:
-        logger.error(f"Venice API request failed: {str(e)}")
-        return jsonify({
-            'success': False,
-            'error': 'Failed to communicate with Venice API.'
-        })
+        except requests.RequestException as e:
+            logger.error(f"Venice API request failed: {str(e)}")
+            return jsonify({
+                'success': False,
+                'error': 'Failed to communicate with Venice API.'
+            })
+        except Exception as e:
+            logger.error(f"Error generating outline: {str(e)}")
+            return jsonify({
+                'success': False,
+                'error': str(e) if str(e) else 'An error occurred while generating the outline.'
+            })
+
     except Exception as e:
-        logger.error(f"Error generating outline: {str(e)}")
+        logger.error(f"Error in generate_outline: {str(e)}")
         return jsonify({
             'success': False,
-            'error': str(e) if str(e) else 'An error occurred while generating the outline.'
+            'error': 'An unexpected error occurred.'
         })
 
 if __name__ == '__main__':
