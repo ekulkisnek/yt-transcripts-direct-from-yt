@@ -127,8 +127,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update UI to loading state
             this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Generating...';
             this.disabled = true;
-            showLoading();
+            loading.classList.remove('d-none');
             error.classList.add('d-none');
+            transcriptContainer.classList.remove('d-none');
 
             try {
                 const outline = await generateVeniceOutline(originalText);
@@ -144,14 +145,16 @@ document.addEventListener('DOMContentLoaded', function() {
             } catch (err) {
                 console.error('Venice API Error:', err);
                 transcript.textContent = originalTranscript;
-                throw err;
+                showError(err.message || 'Failed to generate outline. Please try again.');
             }
 
         } catch (err) {
             showError(err.message || 'Failed to generate outline. Please try again.');
+            transcript.textContent = originalTranscript;
         } finally {
             loading.classList.add('d-none');
             this.disabled = false;
+            transcriptContainer.classList.remove('d-none');
         }
     });
 });
