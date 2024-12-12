@@ -49,12 +49,12 @@ def extract_transcript(url):
             if script.string and '"captions":' in script.string:
                 logging.debug(f"Found script with captions data at index {i}")
                 # Extract caption data
-                match = re.search(r'("captions":.+?"captionTracks":.+?])', script.string)
+                match = re.search(r'(?:"playerCaptionsTracklistRenderer":{"captionTracks":)(.*?)(?:,"audioTracks"|,"translationLanguages")', script.string)
                 if match:
                     try:
-                        caption_data = '{' + match.group(1) + '}'
-                        caption_data = json.loads(caption_data)
-                        caption_tracks = caption_data.get('captionTracks', [])
+                        caption_data_str = match.group(1)
+                        logging.debug(f"Found caption data: {caption_data_str[:200]}...")  # Log first 200 chars
+                        caption_tracks = json.loads(caption_data_str)
                         logging.debug(f"Found {len(caption_tracks)} caption tracks")
                         
                         if caption_tracks:
