@@ -47,7 +47,10 @@ def extract_transcript(url):
         transcript_data = None
         
         for i, script in enumerate(scripts):
-            if script.string and '"captions":' in script.string:
+            if not script.string:
+                continue
+                
+            if '"captions":' in script.string:
                 logging.debug(f"Found script with captions data at index {i}")
                 # Extract caption data
                 match = re.search(r'(?:"playerCaptionsTracklistRenderer":{"captionTracks":)(.*?)(?:,"audioTracks"|,"translationLanguages")', script.string)
@@ -71,19 +74,33 @@ def extract_transcript(url):
                                 logging.debug("No English track found, using first available track")
                             
                             if transcript_url:
-                                # Get transcript content
-                                logging.debug("Fetching transcript content from URL")
-                                transcript_response = requests.get(transcript_url)
-                                transcript_soup = BeautifulSoup(transcript_response.text, 'xml')
-                                
-                                # Extract and format transcript text
-                                transcript = []
-                                for text in transcript_soup.find_all('text'):
-                                    # Unescape HTML entities like &#39; to proper characters
-                                    cleaned_text = html.unescape(text.get_text().strip())
-                                    transcript.append(cleaned_text)
-                                
-                                return '\n'.join(transcript)
+                                try:
+                                    # Get transcript content
+                                    logging.debug(f"Fetching transcript content from URL: {transcript_url}")
+                                    transcript_response = requests.get(transcript_url, headers=headers)
+                                    transcript_response.raise_for_status()
+                                    
+                                    # Parse with explicit XML parser
+                                    transcript_soup = BeautifulSoup(transcript_response.text, 'xml')
+                                    
+                                    # Extract and format transcript text
+                                    transcript = []
+                                    for text in transcript_soup.find_all('text'):
+                                        # Unescape HTML entities like &#39; to proper characters
+                                        cleaned_text = html.unescape(text.get_text().strip())
+                                        transcript.append(cleaned_text)
+                                    
+                                    if not transcript:
+                                        logging.error("No transcript text found in the response")
+                                        return None
+                                        
+                                    return '\n'.join(transcript)
+                                except requests.RequestException as e:
+                                    logging.error(f"Failed to fetch transcript URL: {str(e)}")
+                                    return None
+                                except Exception as e:
+                                    logging.error(f"Failed to process transcript content: {str(e)}")
+                                    return None
                     except Exception as e:
                         logging.error(f"Error processing caption data: {str(e)}")
                         continue
