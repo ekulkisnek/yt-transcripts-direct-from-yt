@@ -1,0 +1,164 @@
+2024-12-11 18:16:33.67
+bc9df4d3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:16:33] "GET / HTTP/1.1" 200 -
+2024-12-11 18:16:53.21
+bc9df4d3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:16:53] "GET / HTTP/1.1" 200 -
+2024-12-11 18:16:53.35
+bc9df4d3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:16:53] "GET /static/js/main.js HTTP/1.1" 200 -
+2024-12-11 18:16:53.35
+bc9df4d3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:16:53] "GET /static/css/style.css HTTP/1.1" 200 -
+2024-12-11 18:16:53.58
+bc9df4d3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:16:53] "GET /favicon.ico HTTP/1.1" 404 -
+2024-12-11 18:17:00.10
+bc9df4d3
+User
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.youtube.com:443
+2024-12-11 18:17:00.17
+bc9df4d3
+User
+DEBUG:urllib3.connectionpool:https://www.youtube.com:443 "GET /watch?v=sxX7XpETMCE HTTP/11" 200 None
+2024-12-11 18:17:00.77
+bc9df4d3
+User
+DEBUG:root:Got response from YouTube with status: 200
+2024-12-11 18:17:00.79
+bc9df4d3
+User
+DEBUG:root:Found 49 script tags in the page
+2024-12-11 18:17:00.79
+bc9df4d3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:17:00] "POST /extract HTTP/1.1" 200 -
+2024-12-11 18:17:33.30
+bc9df4d3
+User
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.youtube.com:443
+2024-12-11 18:17:33.37
+bc9df4d3
+User
+DEBUG:urllib3.connectionpool:https://www.youtube.com:443 "GET /watch?v=wOlf4Ly2v14 HTTP/11" 200 None
+2024-12-11 18:17:33.91
+bc9df4d3
+User
+DEBUG:root:Got response from YouTube with status: 200
+2024-12-11 18:17:33.92
+bc9df4d3
+User
+DEBUG:root:Found 49 script tags in the page
+2024-12-11 18:17:33.92
+bc9df4d3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:17:33] "POST /extract HTTP/1.1" 200 -
+2024-12-11 18:19:38.69
+1fe91e7c
+System
+starting up user application
+2024-12-11 18:19:38.95
+1fe91e7c
+System
+forwarding local port 5000 to external port 80
+2024-12-11 18:19:40.88
+1fe91e7c
+User
+* Serving Flask app 'main'
+2024-12-11 18:19:40.88
+1fe91e7c
+User
+* Debug mode: on
+2024-12-11 18:19:40.99
+1fe91e7c
+User
+INFO:werkzeug:WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+2024-12-11 18:19:40.99
+1fe91e7c
+User
+* Running on all addresses (0.0.0.0)
+2024-12-11 18:19:40.99
+1fe91e7c
+User
+* Running on http://127.0.0.1:5000
+2024-12-11 18:19:40.99
+1fe91e7c
+User
+* Running on http://169.254.8.1:5000
+2024-12-11 18:19:40.99
+1fe91e7c
+User
+INFO:werkzeug:Press CTRL+C to quit
+2024-12-11 18:19:40.99
+1fe91e7c
+User
+INFO:werkzeug: * Restarting with stat
+2024-12-11 18:19:41.47
+1fe91e7c
+User
+WARNING:werkzeug: * Debugger is active!
+2024-12-11 18:19:41.47
+1fe91e7c
+User
+INFO:werkzeug: * Debugger PIN: 583-942-763
+2024-12-11 18:19:49.28
+1fe91e7c
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:19:49] "GET / HTTP/1.1" 200 -
+2024-12-11 18:20:01.63
+1fe91e7c
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:20:01] "GET / HTTP/1.1" 200 -
+2024-12-11 18:20:01.76
+1fe91e7c
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:20:01] "GET /static/js/main.js HTTP/1.1" 200 -
+2024-12-11 18:20:01.77
+1fe91e7c
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:20:01] "GET /static/css/style.css HTTP/1.1" 200 -
+2024-12-11 18:20:05.33
+1fe91e7c
+User
+DEBUG:root:Fetching transcript content from URL: https://www.youtube.com/api/timedtext?v=AGdsLiyZ1ow&ei=NCxaZ8bkL9yX2_gP-LXoiQM&caps=asr&opi=112496729&exp=xbt&xoaf=5&hl=en&ip=0.0.0.0&ipbits=0&expire=1733988004&sparams=ip,ipbits,expire,v,ei,caps,opi,exp,xoaf&signature=6F6B8DBC6E877D797F6C181C4C12978B46E0204F.EE73367E8FE6FA24C34ABBE273A5D81D69098D2B&key=yt8&kind=asr&lang=en
+2024-12-11 18:20:05.34
+1fe91e7c
+User
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.youtube.com:443
+2024-12-11 18:20:05.41
+1fe91e7c
+User
+DEBUG:urllib3.connectionpool:https://www.youtube.com:443 "GET /api/timedtext?v=AGdsLiyZ1ow&ei=NCxaZ8bkL9yX2_gP-LXoiQM&caps=asr&opi=112496729&exp=xbt&xoaf=5&hl=en&ip=0.0.0.0&ipbits=0&expire=1733988004&sparams=ip,ipbits,expire,v,ei,caps,opi,exp,xoaf&signature=6F6B8DBC6E877D797F6C181C4C12978B46E0204F.EE73367E8FE6FA24C34ABBE273A5D81D69098D2B&key=yt8&kind=asr&lang=en HTTP/11" 200 None
+2024-12-11 18:20:05.43
+1fe91e7c
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:20:05] "POST /extract HTTP/1.1" 200 -
+2024-12-11 18:20:15.92
+1fe91e7c
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:20:15] "GET / HTTP/1.1" 200 -
+2024-12-11 18:20:16.02
+1fe91e7c
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:20:16] "GET /static/css/style.css HTTP/1.1" 200 -
+2024-12-11 18:20:16.04
+1fe91e7c
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:20:16] "GET /static/js/main.js HTTP/1.1" 200 -
+2024-12-11 18:20:16.38
+1fe91e7c
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:20:16] "GET /favicon.ico HTTP/1.1" 404 -
+2024-12-11 18:20:25.18
+1fe91e7c
+User
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.youtube.com:443
+2024-12-11 18:20:25.24
+1fe91e7c
+User
+DEBUG:urllib3.connectionpool:https://www.youtube.com:443 "GET /watch?v=n78URg0nFyU HTTP/11" 200 None

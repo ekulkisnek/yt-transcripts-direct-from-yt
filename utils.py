@@ -49,12 +49,20 @@ def extract_transcript(url):
         for i, script in enumerate(scripts):
             if not script.string:
                 continue
-                
-            if '"captions":' in script.string:
-                logging.debug(f"Found script with captions data at index {i}")
-                # Extract caption data
-                match = re.search(r'(?:"playerCaptionsTracklistRenderer":{"captionTracks":)(.*?)(?:,"audioTracks"|,"translationLanguages")', script.string)
+            
+            script_content = script.string
+            
+            # Try different patterns for finding caption data
+            patterns = [
+                r'(?:"playerCaptionsTracklistRenderer":{"captionTracks":)(.*?)(?:,"audioTracks"|,"translationLanguages")',
+                r'(?:"captions":{[^}]*"playerCaptionsTracklistRenderer":{[^}]*"captionTracks":)(.*?)(?:]}|},")',
+                r'"captionTracks":(.*?)(?:,"audioTracks"|,"translationLanguages"|,"isTranslatable")'
+            ]
+            
+            for pattern in patterns:
+                match = re.search(pattern, script_content)
                 if match:
+                    logging.debug(f"Found script with captions data at index {i} using pattern: {pattern}")
                     try:
                         caption_data_str = match.group(1)
                         logging.debug(f"Found caption data: {caption_data_str[:200]}...")  # Log first 200 chars
@@ -80,15 +88,42 @@ def extract_transcript(url):
                                     transcript_response = requests.get(transcript_url, headers=headers)
                                     transcript_response.raise_for_status()
                                     
-                                    # Parse with explicit XML parser
-                                    transcript_soup = BeautifulSoup(transcript_response.text, 'xml')
-                                    
-                                    # Extract and format transcript text
+                                    # Try different parsing approaches
                                     transcript = []
-                                    for text in transcript_soup.find_all('text'):
-                                        # Unescape HTML entities like &#39; to proper characters
-                                        cleaned_text = html.unescape(text.get_text().strip())
-                                        transcript.append(cleaned_text)
+                                    try:
+                                        # First try XML parser
+                                        transcript_soup = BeautifulSoup(transcript_response.text, 'xml')
+                                        texts = transcript_soup.find_all('text')
+                                        
+                                        if texts:
+                                            for text in texts:
+                                                cleaned_text = html.unescape(text.get_text().strip())
+                                                if cleaned_text:  # Only add non-empty lines
+                                                    transcript.append(cleaned_text)
+                                        else:
+                                            # Fallback to HTML parser if XML structure not found
+                                            transcript_soup = BeautifulSoup(transcript_response.text, 'html.parser')
+                                            texts = transcript_soup.find_all('text') or transcript_soup.find_all(class_='caption-line')
+                                            
+                                            for text in texts:
+                                                cleaned_text = html.unescape(text.get_text().strip())
+                                                if cleaned_text:  # Only add non-empty lines
+                                                    transcript.append(cleaned_text)
+                                    except Exception as parse_error:
+                                        logging.error(f"Error parsing transcript content: {str(parse_error)}")
+                                        # Try raw text extraction if parsing fails
+                                        raw_text = transcript_response.text
+                                        if '"text":' in raw_text:
+                                            try:
+                                                # Try to extract text from JSON-like structure
+                                                text_matches = re.findall(r'"text"\s*:\s*"([^"]+)"', raw_text)
+                                                for text in text_matches:
+                                                    cleaned_text = html.unescape(text.strip())
+                                                    if cleaned_text:
+                                                        transcript.append(cleaned_text)
+                                            except Exception as e:
+                                                logging.error(f"Failed to extract text from raw content: {str(e)}")
+                                                raise
                                     
                                     if not transcript:
                                         logging.error("No transcript text found in the response")
