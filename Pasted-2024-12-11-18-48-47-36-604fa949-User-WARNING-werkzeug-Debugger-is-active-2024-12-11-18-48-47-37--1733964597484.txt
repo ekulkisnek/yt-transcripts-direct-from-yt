@@ -1,0 +1,68 @@
+2024-12-11 18:48:47.36
+604fa949
+User
+WARNING:werkzeug: * Debugger is active!
+2024-12-11 18:48:47.37
+604fa949
+User
+INFO:werkzeug: * Debugger PIN: 120-647-297
+2024-12-11 18:48:54.82
+604fa949
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:48:54] "GET / HTTP/1.1" 200 -
+2024-12-11 18:49:05.01
+604fa949
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:49:05] "GET / HTTP/1.1" 200 -
+2024-12-11 18:49:05.24
+604fa949
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:49:05] "GET /static/css/style.css HTTP/1.1" 200 -
+2024-12-11 18:49:05.30
+604fa949
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:49:05] "GET /static/js/main.js HTTP/1.1" 200 -
+2024-12-11 18:49:05.98
+604fa949
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:49:05] "GET /favicon.ico HTTP/1.1" 404 -
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Trying pattern: "captionTracks":(.*?)(?:,"audioTracks"|,"translationLanguages"|,"isTranslatable")
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Trying pattern: (?:"captionTracks":)(.*?)(?:,"translationLanguages"|,"audioTracks"|,"isTranslatable")
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Trying pattern: "captions":\{"playerCaptionsTracklistRenderer":\{"captionTracks":(.*?),
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Analyzing script 33 content preview: if (window.ytcsi) {window.ytcsi.tick('rsbe_dpj', null, '');}
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Trying pattern: (?:"playerCaptionsTracklistRenderer":{"captionTracks":)(.*?)(?:,"audioTracks"|,"translationLanguages")
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Trying pattern: (?:"captions":{[^}]*"playerCaptionsTracklistRenderer":{[^}]*"captionTracks":)(.*?)(?:]}|},")
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Trying pattern: "captionTracks":(.*?)(?:,"audioTracks"|,"translationLanguages"|,"isTranslatable")
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Trying pattern: (?:"captionTracks":)(.*?)(?:,"translationLanguages"|,"audioTracks"|,"isTranslatable")
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Trying pattern: "captions":\{"playerCaptionsTracklistRenderer":\{"captionTracks":(.*?),
+2024-12-11 18:49:15.28
+604fa949
+User
+DEBUG:root:Analyzing script 34 content preview: if (window.ytcsi) {window.ytcsi.tick('js_ld', null, '');}

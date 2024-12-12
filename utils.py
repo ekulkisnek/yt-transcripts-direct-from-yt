@@ -32,11 +32,16 @@ def extract_transcript(url):
     try:
         # Get video page content
         headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept-Language': 'en-US,en;q=0.9',
         }
         response = requests.get(url, headers=headers)
         response.raise_for_status()
         logging.debug(f"Got response from YouTube with status: {response.status_code}")
+        logging.debug(f"Response headers: {dict(response.headers)}")
+        
+        if 'content-type' in response.headers:
+            logging.debug(f"Content-Type: {response.headers['content-type']}")
         
         # Find transcript data in page source
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -58,8 +63,20 @@ def extract_transcript(url):
                 r'(?:"captions":{[^}]*"playerCaptionsTracklistRenderer":{[^}]*"captionTracks":)(.*?)(?:]}|},")',
                 r'"captionTracks":(.*?)(?:,"audioTracks"|,"translationLanguages"|,"isTranslatable")',
                 r'(?:"captionTracks":)(.*?)(?:,"translationLanguages"|,"audioTracks"|,"isTranslatable")',
-                r'"captions":\{"playerCaptionsTracklistRenderer":\{"captionTracks":(.*?),'
+                r'"captions":\{"playerCaptionsTracklistRenderer":\{"captionTracks":(.*?),',
+                r'captionTracks":\[(.*?)\]',
+                r'"captions":({[^}]*"captionTracks":\[.*?\]})',
+                r'playerCaptionsTracklistRenderer":({"captionTracks":.*?})'
             ]
+            
+            # Log the total size of the script content for debugging
+            logging.debug(f"Total script size: {len(script_content)} characters")
+            
+            # Look for indicators of caption data
+            indicators = ['"captionTracks"', 'playerCaptionsTracklistRenderer', 'timedtext']
+            for indicator in indicators:
+                if indicator in script_content:
+                    logging.debug(f"Found caption indicator: {indicator}")
             
             # Log some context about the script content
             content_preview = script_content[:200] if len(script_content) > 200 else script_content
