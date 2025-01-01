@@ -1,0 +1,76 @@
+024-12-11 18:52:22.26
+9f3c4bb3
+User
+INFO:werkzeug:Press CTRL+C to quit
+2024-12-11 18:52:22.26
+9f3c4bb3
+User
+INFO:werkzeug: * Restarting with stat
+2024-12-11 18:52:22.79
+9f3c4bb3
+User
+WARNING:werkzeug: * Debugger is active!
+2024-12-11 18:52:22.80
+9f3c4bb3
+User
+INFO:werkzeug: * Debugger PIN: 174-227-040
+2024-12-11 18:52:29.70
+9f3c4bb3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:52:29] "GET / HTTP/1.1" 200 -
+2024-12-11 18:53:09.45
+9f3c4bb3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:53:09] "GET / HTTP/1.1" 200 -
+2024-12-11 18:53:09.81
+9f3c4bb3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:53:09] "GET /static/js/main.js HTTP/1.1" 200 -
+2024-12-11 18:53:09.84
+9f3c4bb3
+User
+INFO:werkzeug:127.0.0.1 - - [12/Dec/2024 00:53:09] "GET /static/css/style.css HTTP/1.1" 200 -
+2024-12-11 18:53:24.06
+9f3c4bb3
+User
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): www.youtube.com:443
+2024-12-11 18:53:24.13
+9f3c4bb3
+User
+DEBUG:urllib3.connectionpool:https://www.youtube.com:443 "GET /watch?v=WDIa9FJZKlU HTTP/11" 200 None
+2024-12-11 18:53:24.55
+9f3c4bb3
+User
+DEBUG:root:Got response from YouTube with status: 200
+2024-12-11 18:53:24.55
+9f3c4bb3
+User
+DEBUG:root:Response headers: {'Content-Type': 'text/html; charset=utf-8', 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-cache, no-store, max-age=0, must-revalidate', 'Pragma': 'no-cache', 'Expires': 'Mon, 01 Jan 1990 00:00:00 GMT', 'Date': 'Thu, 12 Dec 2024 00:53:24 GMT', 'Strict-Transport-Security': 'max-age=31536000', 'X-Frame-Options': 'SAMEORIGIN', 'Content-Security-Policy': "require-trusted-types-for 'script'", 'Origin-Trial': 'AmhMBR6zCLzDDxpW+HfpP67BqwIknWnyMOXOQGfzYswFmJe+fgaI6XZgAzcxOrzNtP7hEDsOo1jdjFnVr2IdxQ4AAAB4eyJvcmlnaW4iOiJodHRwczovL3lvdXR1YmUuY29tOjQ0MyIsImZlYXR1cmUiOiJXZWJWaWV3WFJlcXVlc3RlZFdpdGhEZXByZWNhdGlvbiIsImV4cGlyeSI6MTc1ODA2NzE5OSwiaXNTdWJkb21haW4iOnRydWV9', 'Accept-CH': 'Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Model, Sec-CH-UA-WoW64, Sec-CH-UA-Form-Factors, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version', 'Vary': 'Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Full-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Model, Sec-CH-UA-WoW64, Sec-CH-UA-Form-Factors, Sec-CH-UA-Platform, Sec-CH-UA-Platform-Version', 'Permissions-Policy': 'ch-ua-arch=*, ch-ua-bitness=*, ch-ua-full-version=*, ch-ua-full-version-list=*, ch-ua-model=*, ch-ua-wow64=*, ch-ua-form-factors=*, ch-ua-platform=*, ch-ua-platform-version=*', 'Report-To': '{"group":"youtube_main","max_age":2592000,"endpoints":[{"url":"https://csp.withgoogle.com/csp/report-to/youtube_main"}]}', 'Cross-Origin-Opener-Policy': 'same-origin-allow-popups; report-to="youtube_main"', 'P3P': 'CP="This is not a P3P policy! See http://support.google.com/accounts/answer/151657?hl=en for more info."', 'Content-Encoding': 'gzip', 'Server': 'ESF', 'X-XSS-Protection': '0', 'Set-Cookie': 'GPS=1; Domain=.youtube.com; Expires=Thu, 12-Dec-2024 01:23:24 GMT; Path=/; Secure; HttpOnly, YSC=yQ-as-ahDPg; Domain=.youtube.com; Path=/; Secure; HttpOnly; SameSite=none; Partitioned, VISITOR_INFO1_LIVE=0kG6M6o1mYk; Domain=.youtube.com; Expires=Tue, 10-Jun-2025 00:53:24 GMT; Path=/; Secure; HttpOnly; SameSite=none; Partitioned, VISITOR_PRIVACY_METADATA=CgJVUxIEGgAgYQ%3D%3D; Domain=.youtube.com; Expires=Tue, 10-Jun-2025 00:53:24 GMT; Path=/; Secure; HttpOnly; SameSite=none; Partitioned', 'Alt-Svc': 'h3=":443"; ma=2592000,h3-29=":443"; ma=2592000', 'Transfer-Encoding': 'chunked'}
+2024-12-11 18:53:24.55
+9f3c4bb3
+User
+DEBUG:root:Content-Type: text/html; charset=utf-8
+2024-12-11 18:53:24.57
+9f3c4bb3
+User
+DEBUG:root:Found 49 script tags in the page
+2024-12-11 18:53:24.57
+9f3c4bb3
+User
+DEBUG:root:Total script size: 409 characters
+2024-12-11 18:53:24.57
+9f3c4bb3
+User
+DEBUG:root:Analyzing script 0 content preview: window.WIZ_global_data = {"MUE6Ne":"youtube_web","MuJWjd":false,"UUFaWc":"%.@.null,1000,2]","cfb2h":"youtube.web-front-end-critical_20241210.09_p0","fPDxwd":[],"iCzhFc":false,"nQyAE":{},"oxN3nb":{"1":
+2024-12-11 18:53:24.57
+9f3c4bb3
+User
+DEBUG:root:Trying pattern: (?:"playerCaptionsTracklistRenderer":{"captionTracks":)(.*?)(?:,"audioTracks"|,"translationLanguages")
+2024-12-11 18:53:24.57
+9f3c4bb3
+User
+DEBUG:root:Trying pattern: (?:"captions":{[^}]*"playerCaptionsTracklistRenderer":{[^}]*"captionTracks":)(.*?)(?:]}|},")
+2024-12-11 18:53:24.57
+9f3c4bb3
+User
+DEBUG:root:Trying pattern: "captionTracks":(.*?)(?:,"audioTracks"|,"translationLanguages"|,"isTranslatable")
